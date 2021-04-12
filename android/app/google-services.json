@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "682961600572",
+    "project_id": "adv-mad-alfredo",
+    "storage_bucket": "adv-mad-alfredo.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682961600572:android:060d82fca51926004f8339",
+        "android_client_info": {
+          "package_name": "com.example.advweek5"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682961600572-b57rg4mt0fu5a5u2p3ap11ntvl5grjvt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKSU1ezEUpkvKcgQRXWZlQpRLtwJ4lqNA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682961600572-b57rg4mt0fu5a5u2p3ap11ntvl5grjvt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
