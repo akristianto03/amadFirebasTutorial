@@ -14,6 +14,7 @@ class _RegisterState extends State<Register> {
   final ctrlPhone = TextEditingController();
   final ctrlPassword = TextEditingController();
   bool isVisible = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +28,10 @@ class _RegisterState extends State<Register> {
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        padding: EdgeInsets.all(24),
         child: Stack(
           children: [
             ListView(
+              padding: EdgeInsets.all(24),
               children: [
                 Form(
                   key: _formKey,
@@ -128,8 +129,27 @@ class _RegisterState extends State<Register> {
                       ),
                       SizedBox(height: 16),
                       ElevatedButton.icon(
-                        onPressed: (){
+                        onPressed: () async{
                           if(_formKey.currentState.validate()){
+                            setState(() {
+                              isLoading = true;
+                            });
+                            Users u = new Users("", ctrlName.text, ctrlPhone.text, ctrlEmail.text, ctrlPassword.text, "", "");
+                            await AuthServices.signUp(u).then((value){
+                              if (value == "success") {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                ActivityServices.showToast("Register Success", Colors.green);
+                                Navigator.pushReplacementNamed(context, Login.routeName);
+                              }else{
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                ActivityServices.showToast(value, Colors.blue);
+                              }
+                            });
+
                             //melanjutkan tahap berikutnya
                             // Navigator.pushReplacementNamed(context, MainMenu.routeName);
                           }else {
@@ -137,7 +157,7 @@ class _RegisterState extends State<Register> {
                           }
                         },
                         icon: Icon(Icons.login_rounded),
-                        label: Text("Login"),
+                        label: Text("Register"),
                         style: ElevatedButton.styleFrom(
                             primary: Colors.deepOrange[400],
                             elevation: 0
@@ -159,7 +179,10 @@ class _RegisterState extends State<Register> {
                   ),
                 )
               ],
-            )
+            ),
+            isLoading == true
+                ? ActivityServices.loadings()
+                : Container()
           ],
         ),
       ),
