@@ -30,8 +30,10 @@ dependencies:
   firebase_auth:
   firebase_core:
   firebase_storage:
+  firebase_messaging:
   cloud_firestore:
   intl:
+  image_picker:
   flutter_spinkit: ^5.0.0
 
 

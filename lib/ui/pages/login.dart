@@ -12,6 +12,7 @@ class _LoginState extends State<Login> {
   final ctrlEmail = TextEditingController();
   final ctrlPassword = TextEditingController();
   bool isVisible = true;
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,10 +89,26 @@ class _LoginState extends State<Login> {
                       ),
                       SizedBox(height: 16),
                       ElevatedButton.icon(
-                        onPressed: (){
+                        onPressed: () async{
                           if(_formKey.currentState.validate()){
                             //melanjutkan tahap berikutnya
-                            Navigator.pushReplacementNamed(context, MainMenu.routeName);
+                            setState(() {
+                              isLoading = true;
+                            });
+                            await AuthServices.signIn(ctrlEmail.text, ctrlPassword.text).then((value) {
+                              if (value == "success") {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                ActivityServices.showToast("Login success", Colors.greenAccent);
+                                Navigator.pushReplacementNamed(context, MainMenu.routeName);
+                              } else {
+                                setState(() {
+                                  isLoading = false;
+                                });
+                                ActivityServices.showToast(value, Colors.redAccent);
+                              }
+                            });
                           }else {
                             Fluttertoast.showToast(msg: "Please check the fields", backgroundColor: Colors.red);
                           }
@@ -119,7 +136,10 @@ class _LoginState extends State<Login> {
                   ),
                 )
               ],
-            )
+            ),
+            isLoading == true
+            ? ActivityServices.loadings()
+            : Container()
           ],
         ),
       ),
