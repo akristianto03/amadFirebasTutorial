@@ -60,7 +60,7 @@ class AuthServices {
       msg = ""+onError;
     });
 
-    auth.signOut();
+    // auth.signOut();
 
     return msg;
   }
